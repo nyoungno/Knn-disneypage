@@ -1,0 +1,154 @@
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Inspire-KO, sans-serif;
+    color: white;
+    background-color:#040714;
+  }
+  
+  h1,h2 {
+    font-weight : bolder;
+  }
+  
+  section {
+    padding: 5.6vw;
+  }
+  
+  ul{
+    list-style:none;
+    padding-left:0px;
+  }
+  
+  p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .menus-container {
+    padding-left: 5.6vw;
+    padding-right: 5.6vw;
+  }
+  .menus {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 4px double #ebebeb;
+  }
+  
+  .menus button {
+    border: none;
+    background: none;
+    margin: 14px;
+    color: #cecece;
+    font-weight: bolder;
+  }
+  
+  .menus button:hover {
+    background-color: #616DA2
+  }
+
+
+  
+
+
+  .accordion {
+    --bs-accordion-btn-bg: #13151d; 
+    --bs-accordion-active-bg: #13151d; 
+    --bs-accordion-active-color: white
+    --bs-accordion-btn-focus-box-shadow: none;
+    --bs-accordion-bg: #13151d; 
+    --bs-accordion-color:  white;
+  }
+  
+  
+  .accordion-button:not(.collapsed) {
+    box-shadow: none;
+  }
+  
+  .acceldjs {
+    color: #cecece;
+    font-weight: bold;
+  }
+  
+  .footer_container {
+    padding-top: 0;
+  }
+  
+  .footer_line {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  
+  .footer_line_con {
+    text-align: center;
+  
+  }
+  
+  .footer_line_first_con {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+  }
+  
+  @media (max-width:992px) {
+
+    .footer_line_first_con {
+      display: block;
+      width: 80%;
+    }
+    .footer_line {
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 10px;
+    }
+    .footer_line li{
+      font-size: 0.8rem;
+    }
+    .footer-column-box {
+      padding: 0px 2px;
+      width: 25%;
+    }
+    .line_con {
+      display: flex;
+      justify-content: center;
+    }
+  
+  }
+  
+  @media (max-width:768px) {
+    
+  }
+
+  
+  @media (max-width:430px) {
+    .streaming_container {
+      padding-top: 100px;
+    }
+    .footer_line_first_con {
+      display: block;
+      width: 100%;
+    }
+  
+  }
+  
+  @media all and (min-width: 993px) and (max-width:1280px) {
+    
+  }
