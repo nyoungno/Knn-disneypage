@@ -61,6 +61,20 @@ const getMovieByCategory = async (event) => {
   }
 };
 
+const getMovieByKeyword = async () => {
+  const keyword = document.getElementById("search-input").value;
+  console.log("keyword", keyword);
+  const url = new URL(
+    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=ko-KR&query=${keyword}`
+  );
+
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("keyword", data);
+  movieList = data.results;
+  render();
+};
+
 const render = () => {
   const movieHTML = movieList
     .map(
@@ -86,3 +100,12 @@ const render = () => {
 };
 
 getLatestMovie();
+
+const openSearchBox = () => {
+  let inputArea = document.getElementById("input-area");
+  if (inputArea.style.display === "inline") {
+    inputArea.style.display = "none";
+  } else {
+    inputArea.style.display = "inline";
+  }
+};

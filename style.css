@@ -38,6 +38,14 @@ html {
 
   }
 
+  .search-container {
+    padding-left: 5.6vw;
+    padding-right: 5.6vw;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+  }
+
   .menus-container {
     padding-left: 5.6vw;
     padding-right: 5.6vw;
@@ -64,7 +72,10 @@ html {
     background-color: #616DA2
   }
 
-
+  .movie_container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
   
 
 
@@ -157,7 +168,6 @@ html {
 
 
 
-
   .movie-card {
     display: flex;
     justify-content: center;
@@ -165,7 +175,7 @@ html {
   }
 
   .movie {
-    width: 240px;
+    width: 300px;
     margin: 1rem;
     border-radius: 1px;
     box-shadow: 0.2px 4px 5px rgba(0,0,0,0,1);
@@ -215,4 +225,18 @@ html {
 
   .movie:hover .overview {
     transform: translateY(0);
+  }
+
+
+  .btn {
+    --bs-btn-padding-x: 0.55rem;
+    --bs-btn-padding-y: 0.300rem;
+    --bs-btn-font-family: ;
+    --bs-btn-font-size: 14px;
+  }
+
+  .search-items {
+    border-radius: 5px;
+    height: 35px;
+    padding-left: 10px;
   }
