@@ -10,8 +10,16 @@ let url = new URL(
   `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
 );
 
+let totalResult = 0;
+let page = 1;
+const pageSize = 10; // TMDB API는 pageSize를 지원하지 않음
+let groupSize = 10;
+
 const getMovies = async () => {
   try {
+    url.searchParams.set("page", page);
+    // url.searchParams.set("pageSize", pageSize); // 이 줄은 필요 없음
+
     const response = await fetch(url);
     const data = await response.json();
     if (response.status === 200) {
@@ -19,7 +27,9 @@ const getMovies = async () => {
         throw new Error("검색 결과가 없습니다.");
       }
       movieList = data.results;
+      totalResult = data.total_results;
       render();
+      paginationRender();
     } else {
       throw new Error(data.status_message);
     }
@@ -32,6 +42,7 @@ const getLatestMovie = async () => {
   url = new URL(
     `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
   );
+  page = 1;
   getMovies();
 };
 
@@ -63,6 +74,8 @@ const getMovieByCategory = async (event) => {
   url = new URL(
     `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=ko-KR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`
   );
+  page = 1;
+  document.getElementById("selected-category").innerText = category; // 선택된 카테고리 제목 업데이트
   getMovies();
 };
 
@@ -71,6 +84,9 @@ const getMovieByKeyword = async () => {
   url = new URL(
     `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=ko-KR&query=${keyword}`
   );
+  page = 1;
+  document.getElementById("selected-category").innerText =
+    `'` + keyword + `'` + "으로 검색한 결과"; // 카테고리 제목에 업데이트
   getMovies();
 };
 
@@ -106,6 +122,33 @@ const errorRender = (errorMessage) => {
   document.getElementById("movie-board").innerHTML = errorHTML;
 };
 
+const paginationRender = () => {
+  //totalResult
+  //page
+  //pagesize
+  //totalPages
+  //groupSize
+
+  //pageGroup
+  const pageGroup = Math.ceil(page / groupSize);
+  //lastPage
+  const lastPage = pageGroup * groupSize;
+  //firstPage
+  const firstPage = lastPage - (groupSize - 1);
+
+  let paginationHTML = ``;
+
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `<li class="page-item" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
+  }
+  document.querySelector(".pagination").innerHTML = paginationHTML;
+};
+
+const moveToPage = (pageNum) => {
+  console.log("dfsdf", pageNum);
+  page = pageNum;
+  getMovies();
+};
 getLatestMovie();
 
 const openSearchBox = () => {

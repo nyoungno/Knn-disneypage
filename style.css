@@ -166,7 +166,13 @@ html {
 
 
 
-
+.title {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 30px
+}
 
   .movie-card {
     display: flex;
@@ -177,7 +183,7 @@ html {
   .movie {
     width: 300px;
     margin: 1rem;
-    border-radius: 1px;
+    border-radius: 6px;
     box-shadow: 0.2px 4px 5px rgba(0,0,0,0,1);
     background-color: #616DA2;
     position: relative;
