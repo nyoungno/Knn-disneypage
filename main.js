@@ -6,17 +6,23 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getMovieByCategory(event))
 );
+let url = new URL(
+  `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
+);
+
+const getMovies = async () => {
+  const response = await fetch(url);
+  const data = await response.json();
+  movieList = data.results;
+  render();
+};
 
 const getLatestMovie = async () => {
   try {
-    const url = new URL(
+    url = new URL(
       `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
     );
-    const response = await fetch(url);
-    const data = await response.json();
-    movieList = data.results;
-    render();
-    console.log("dddd", movieList);
+    getMovies();
   } catch (error) {
     console.error("Failed to fetch latest movies:", error);
   }
@@ -48,14 +54,10 @@ const getMovieByCategory = async (event) => {
       // 필요한 장르 추가
     };
     const genreId = genreMap[category];
-    const url = new URL(
+    url = new URL(
       `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=ko-KR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreId}`
     );
-    const response = await fetch(url);
-    const data = await response.json();
-    movieList = data.results;
-    render();
-    console.log("dddd", movieList);
+    getMovies();
   } catch (error) {
     console.error("Failed to fetch movies by category:", error);
   }
@@ -63,16 +65,10 @@ const getMovieByCategory = async (event) => {
 
 const getMovieByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
-  console.log("keyword", keyword);
-  const url = new URL(
+  url = new URL(
     `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=ko-KR&query=${keyword}`
   );
-
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("keyword", data);
-  movieList = data.results;
-  render();
+  getMovies();
 };
 
 const render = () => {
