@@ -11,8 +11,16 @@ html {
     background-color:#040714;
   }
   
-  h1,h2 {
+  h1,h2,h3 {
     font-weight : bolder;
+    margin: 0;
+  }
+  
+  h4 {
+    font-weight: bolder;
+    font-size: medium;
+    text-shadow: 0px 2px 1px black;
+    margin: 0;
   }
   
   section {
@@ -185,12 +193,13 @@ html {
     margin: 1rem;
     border-radius: 6px;
     box-shadow: 0.2px 4px 5px rgba(0,0,0,0,1);
-    background-color: #616DA2;
+    background-color: #2F355D;
     position: relative;
     overflow: hidden;
   }
   .movie-img {
     width: 100%;
+    height: 430px;
   }
  
 
@@ -201,9 +210,10 @@ html {
     justify-content: space-between;
     padding: 0.5rem 1rem 1rem;
     letter-spacing: 0.5px;
+    height: 100px;
   }
 
-  .movie-info h3 {
+  .movie-info h4 {
     margin-top: 0;
     font-weight: bolder;
   }
@@ -211,9 +221,19 @@ html {
   .movie-info span {
     color:  white;
     font-weight: bold;
-    background-color: #040714;
+    background-color: #1D2244;
     padding: 0.25rem 0.5rem;
     border-radius: 5px; 
+  }
+
+  .movie-info span.green{
+    color: greenyellow;
+  }
+  .movie-info span.orange{
+    color: orange;
+  }
+  .movie-info span.red{
+    color: red;
   }
 
   .overview {

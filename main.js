@@ -15,6 +15,19 @@ let page = 1;
 const pageSize = 10; // TMDB API는 pageSize를 지원하지 않음
 let groupSize = 10;
 
+var input = document.getElementById("search-input");
+
+// Execute a function when the user presses a key on the keyboard
+input.addEventListener("keypress", function (event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("search-button").click();
+  }
+});
+
 const getMovies = async () => {
   try {
     url.searchParams.set("page", page);
@@ -98,10 +111,10 @@ const render = () => {
                         class="movie-img" alt="image">
 
                     <div class="movie-info">
-                        <h3>${movie.title}</h3>
-                        <span class="green">${movie.vote_average.toFixed(
-                          1
-                        )}</span>
+                        <h4>${movie.title}</h4>
+                        <span class="${getColor(
+                          movie.vote_average
+                        )}">${movie.vote_average.toFixed(1)}</span>
                     </div>
 
                     <div class="overview">
@@ -159,3 +172,21 @@ const openSearchBox = () => {
     inputArea.style.display = "inline";
   }
 };
+
+function truncateString(str, maxLength) {
+  if (str.length > maxLength) {
+    return str.substring(0, maxLength) + "..."; // 넘어갈 때 생략 부호 추가
+  } else {
+    return str; // 길이가 maxLength 이하면 그대로 반환
+  }
+}
+
+function getColor(vote) {
+  if (vote >= 8) {
+    return "green";
+  } else if (vote >= 5) {
+    return "orange";
+  } else {
+    return "red";
+  }
+}

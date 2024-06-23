@@ -14,7 +14,9 @@
 <body>
     <header>
         <nav class="navbar mt-5">
-            <img src="./images/header/original logo.png" width="148">
+            <a href="">
+                <img src="./images/header/original logo.png" width="148">
+            </a>
         </nav>
     </header>
 
@@ -22,8 +24,9 @@
         <div class="search-container">
             <i class="fas fa-search m-2" onclick="openSearchBox()"></i>
             <span id="input-area" style="display: none;">
-                <input class="search-items" type="text" id="search-input" placeholder="search" />
-                <button class="btn btn-dark btn-outline-light" onclick=" getMovieByKeyword()">검색</button>
+                <input class="search-items" type="text" id="search-input" placeholder="제목을 입력해보세요." />
+                <button class="btn btn-dark btn-outline-light" id="search-button"
+                    onclick=" getMovieByKeyword()">검색</button>
             </span>
         </div>
         <div class="menus-container">
