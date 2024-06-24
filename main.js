@@ -12,7 +12,7 @@ let url = new URL(
 
 let totalResult = 0;
 let page = 1;
-const pageSize = 10; // TMDB API는 pageSize를 지원하지 않음
+const pageSize = 20; // TMDB API는 pageSize를 지원하지 않음 또한 고정값이 20 이다
 let groupSize = 10;
 
 var input = document.getElementById("search-input");
@@ -140,20 +140,39 @@ const paginationRender = () => {
   //page
   //pagesize
   //totalPages
+  const totalPages = Math.ceil(totalResult / 20);
+  // pageSize가 고정값인 20으로 대체
   //groupSize
-
+  // 검색결과없음에 페이지네이션 없애기
   //pageGroup
   const pageGroup = Math.ceil(page / groupSize);
   //lastPage
-  const lastPage = pageGroup * groupSize;
+  let lastPage = pageGroup * groupSize;
+  if (lastPage > totalPages) {
+    lastPage = totalPages;
+  }
   //firstPage
-  const firstPage = lastPage - (groupSize - 1);
+  const firstPage =
+    lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
 
-  let paginationHTML = ``;
+  let paginationHTML = `<li class="page-item" onclick="moveToPage(1)">
+                        <a class="page-link" href='#js-bottom'>&lt;&lt;</a>
+                      </li><li class="page-item" onclick="moveToPage(${
+                        page - 1
+                      })"><a class="page-link" href="#">&lt;</a></li>`;
 
   for (let i = firstPage; i <= lastPage; i++) {
-    paginationHTML += `<li class="page-item" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
+    paginationHTML += `<li class="page-item  ${
+      i === page ? "active" : ""
+    }"onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
   }
+
+  paginationHTML += `<li class="page-item" onclick="moveToPage(${
+    page + 1
+  })"><a class="page-link" href="#">&gt;</a></li>
+  <li class="page-item" onclick="moveToPage(500)">
+                        <a class="page-link" href='#js-bottom'>&gt;&gt;</a>
+                       </li>`;
   document.querySelector(".pagination").innerHTML = paginationHTML;
 };
 
@@ -172,14 +191,6 @@ const openSearchBox = () => {
     inputArea.style.display = "inline";
   }
 };
-
-function truncateString(str, maxLength) {
-  if (str.length > maxLength) {
-    return str.substring(0, maxLength) + "..."; // 넘어갈 때 생략 부호 추가
-  } else {
-    return str; // 길이가 maxLength 이하면 그대로 반환
-  }
-}
 
 function getColor(vote) {
   if (vote >= 8) {
