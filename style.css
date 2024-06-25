@@ -58,6 +58,7 @@ html {
     padding-left: 5.6vw;
     padding-right: 5.6vw;
   }
+
   .menus {
     margin-top: 1em;
     display: flex;
@@ -86,8 +87,6 @@ html {
     padding-bottom: 1rem;
   }
   
-
-
   .accordion {
     --bs-accordion-btn-bg: #13151d; 
     --bs-accordion-active-bg: #13151d; 
@@ -96,7 +95,6 @@ html {
     --bs-accordion-bg: #13151d; 
     --bs-accordion-color:  white;
   }
-  
   
   .accordion-button:not(.collapsed) {
     box-shadow: none;
@@ -157,7 +155,6 @@ html {
     
   }
 
-  
   @media (max-width:430px) {
     .streaming_container {
       padding-top: 100px;
@@ -172,8 +169,6 @@ html {
   @media all and (min-width: 993px) and (max-width:1280px) {
     
   }
-
-
 
 .title {
   padding-top: 2rem;
@@ -198,12 +193,12 @@ html {
     position: relative;
     overflow: hidden;
   }
+  
   .movie-img {
     width: 100%;
     height: 430px;
   }
  
-
   .movie-info {
     color: white;
     display: flex;
@@ -254,7 +249,6 @@ html {
   .movie:hover .overview {
     transform: translateY(0);
   }
-
 
   .btn {
     --bs-btn-padding-x: 0.55rem;
