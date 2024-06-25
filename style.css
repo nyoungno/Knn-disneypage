@@ -74,6 +74,7 @@ html {
     margin: 14px;
     color: #cecece;
     font-weight: bolder;
+    border-radius: 5%;
   }
   
   .menus button:hover {
@@ -247,6 +248,7 @@ html {
     max-height: 100%;
     transform: translateY(101%);
     transition: transform 0.3s ease-in;
+    font-weight: bolder
   }
 
   .movie:hover .overview {
@@ -266,3 +268,19 @@ html {
     height: 35px;
     padding-left: 10px;
   }
+
+  .page-link {
+    color: #2F355D;
+  }
+
+  .active>.page-link, .page-link.active {
+    background-color: #616DA2;
+    border-color: #616DA2;
+}
+
+.pagination {
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  padding-left: 5.2vw;
+  padding-right: 5.2vw;
+}

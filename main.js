@@ -3,6 +3,7 @@ const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 let movieList = [];
 const menus = document.querySelectorAll(".menus button");
 
+// 각 메뉴 버튼에 클릭 이벤트 추가
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getMovieByCategory(event))
 );
@@ -12,22 +13,20 @@ let url = new URL(
 
 let totalResult = 0;
 let page = 1;
-const pageSize = 20; // TMDB API는 pageSize를 지원하지 않음 또한 고정값이 20 이다
+const pageSize = 20; // TMDB API는 페이지 크기를 지정할 수 없으며, 기본값은 20입니다
 let groupSize = 10;
 
 var input = document.getElementById("search-input");
 
-// Execute a function when the user presses a key on the keyboard
+// 검색 입력창에서 Enter 키 입력 시 검색 버튼 클릭 이벤트 발생
 input.addEventListener("keypress", function (event) {
-  // If the user presses the "Enter" key on the keyboard
   if (event.key === "Enter") {
-    // Cancel the default action, if needed
     event.preventDefault();
-    // Trigger the button element with a click
     document.getElementById("search-button").click();
   }
 });
 
+// 영화 목록을 가져오는 비동기 함수
 const getMovies = async () => {
   try {
     url.searchParams.set("page", page);
@@ -35,22 +34,24 @@ const getMovies = async () => {
 
     const response = await fetch(url);
     const data = await response.json();
+
     if (response.status === 200) {
       if (data.results.length === 0) {
         throw new Error("검색 결과가 없습니다.");
       }
       movieList = data.results;
       totalResult = data.total_results;
-      render();
-      paginationRender();
+      render(); // 영화 목록을 화면에 렌더링
+      paginationRender(); // 페이지네이션 렌더링
     } else {
       throw new Error(data.status_message);
     }
   } catch (error) {
-    errorRender(error.message);
+    errorRender(error.message); // 에러 메시지 렌더링
   }
 };
 
+// 가장 최신 영화 목록을 가져오는 함수
 const getLatestMovie = async () => {
   url = new URL(
     `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
@@ -59,6 +60,7 @@ const getLatestMovie = async () => {
   getMovies();
 };
 
+// 선택된 카테고리에 따라 영화를 가져오는 함수
 const getMovieByCategory = async (event) => {
   const category = event.target.innerText; // 여기에 장르 이름을 ID로 변환하는 로직이 필요합니다.
   const genreMap = {
@@ -92,6 +94,7 @@ const getMovieByCategory = async (event) => {
   getMovies();
 };
 
+// 키워드로 영화를 검색하는 함수
 const getMovieByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
   url = new URL(
@@ -99,16 +102,17 @@ const getMovieByKeyword = async () => {
   );
   page = 1;
   document.getElementById("selected-category").innerText =
-    `'` + keyword + `'` + "으로 검색한 결과"; // 카테고리 제목에 업데이트
+    `'` + keyword + `'` + "으로 검색한 결과"; // 카테고리 제목 또는 검색결과를 보여줌
   getMovies();
 };
 
+// 영화 목록을 화면에 렌더링하는 함수
 const render = () => {
   const movieHTML = movieList
     .map(
       (movie) => `<div class="movie">
                     <img src="${IMG_URL}${movie.poster_path}"
-                        class="movie-img" alt="image">
+                        class="movie-img" alt="image" onerror="this.onerror=null; this.src='https://www.movienewz.com/wp-content/uploads/2014/07/poster-holder.jpg';">
 
                     <div class="movie-info">
                         <h4>${movie.title}</h4>
@@ -118,40 +122,31 @@ const render = () => {
                     </div>
 
                     <div class="overview">
-                        ${movie.overview}
+                        ${movie.overview || "내용없음"}
                     </div>
-                </div>`
+                </div>` // 여기서 onerror는 출처가 없는 이미지를 대처함
     )
     .join("");
 
   document.getElementById("movie-board").innerHTML = movieHTML;
 };
 
+// 에러 메시지를 화면에 렌더링하는 함수
 const errorRender = (errorMessage) => {
   const errorHTML = `<div>
   ${errorMessage}
 </div>`;
-
   document.getElementById("movie-board").innerHTML = errorHTML;
 };
 
+// 페이지네이션을 화면에 렌더링하는 함수
 const paginationRender = () => {
-  //totalResult
-  //page
-  //pagesize
-  //totalPages
   const totalPages = Math.ceil(totalResult / 20);
-  // pageSize가 고정값인 20으로 대체
-  //groupSize
-  // 검색결과없음에 페이지네이션 없애기
-  //pageGroup
   const pageGroup = Math.ceil(page / groupSize);
-  //lastPage
   let lastPage = pageGroup * groupSize;
   if (lastPage > totalPages) {
     lastPage = totalPages;
   }
-  //firstPage
   const firstPage =
     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
 
@@ -173,16 +168,17 @@ const paginationRender = () => {
   <li class="page-item" onclick="moveToPage(500)">
                         <a class="page-link" href='#js-bottom'>&gt;&gt;</a>
                        </li>`;
+
   document.querySelector(".pagination").innerHTML = paginationHTML;
 };
 
+// 페이지 이동 함수
 const moveToPage = (pageNum) => {
-  console.log("dfsdf", pageNum);
   page = pageNum;
   getMovies();
 };
-getLatestMovie();
 
+// 검색창 토글 함수
 const openSearchBox = () => {
   let inputArea = document.getElementById("input-area");
   if (inputArea.style.display === "inline") {
@@ -192,6 +188,7 @@ const openSearchBox = () => {
   }
 };
 
+// 평점에 따른 색상 반환 함수
 function getColor(vote) {
   if (vote >= 8) {
     return "green";
@@ -201,3 +198,6 @@ function getColor(vote) {
     return "red";
   }
 }
+
+// 초기 영화 목록 가져오기
+getLatestMovie();
