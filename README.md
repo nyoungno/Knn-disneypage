@@ -1,12 +1,18 @@
-# disneyplus-Webpage
+# Disneyplus-Webpage
 
 ### 개발기간: 24. 06.10 ~ 진행중
 
 ### 개발 목표
 
-TMDB API를 이용한 웹사이트 // 6월24일 업데이트
+TMDB API를 이용한 영화 웹사이트 // 6월24일 업데이트
 
 ### 사용기술
+
+- HTML
+- CSS
+- JavaScript
+- TMDB API
+- Bootstrap
 
 ### 개념정리
 
