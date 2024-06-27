@@ -205,5 +205,44 @@ function getColor(vote) {
   }
 }
 
+// 정렬 메뉴에 클릭 이벤트 추가
+const sortMovies = document.querySelectorAll(".sortMovies button");
+
+sortMovies.forEach((sortMovie) =>
+  sortMovie.addEventListener("click", (event) => getMoviesBySort(event))
+);
+
+// 정렬 기준에 따라 영화를 가져오는 함수
+const getMoviesBySort = (event) => {
+  const sortMenu = event.target.innerText.trim();
+  let sortBy;
+
+  switch (sortMenu) {
+    case "인기도":
+      sortBy = "popularity.desc";
+      break;
+    case "평점":
+      sortBy = "vote_average.desc";
+      break;
+    case "개봉일":
+      sortBy = "release_date.desc";
+      break;
+    default:
+      sortBy = "popularity.desc"; // 기본값은 인기도로 설정
+      break;
+  }
+
+  // 현재 선택된 장르 아이디 가져오기
+  const selectedGenreId = url.searchParams.get("with_genres");
+
+  // URL 업데이트: 선택된 장르와 정렬 기준을 모두 반영
+  url = new URL(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=ko-KR&sort_by=${sortBy}&include_adult=false&include_video=false&page=1&with_genres=${selectedGenreId}`
+  );
+
+  // 영화 목록을 가져오기
+  getMovies();
+};
+
 // 초기 영화 목록 가져오기
 getLatestMovie();

@@ -298,3 +298,22 @@ p {
     width: 100%;
   }
 }
+
+.movietitlebox .sortMovies {
+  padding-left: 8vw;
+  padding-right: 8vw;
+  display: flex;
+  justify-content: center;
+}
+
+.sortMovies,
+button {
+  border: none;
+  background: none;
+  color: white;
+  font-family: "Jua", sans-serif;
+  font-size: larger;
+  border-radius: 5%;
+  font-size: 18px;
+  gap: 15px;
+}
